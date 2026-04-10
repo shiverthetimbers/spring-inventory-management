@@ -1,5 +1,6 @@
 package com.example.demo.bootstrap;
 
+import com.example.demo.domain.InhousePart;
 import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
@@ -13,6 +14,7 @@ import com.example.demo.service.ProductServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +40,31 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        if (partRepository.count() == 0) {
+
+            List<InhousePart> starterParts = Arrays.asList(
+                    new InhousePart("CPU, 4 Cores", 100.00, 10),
+                    new InhousePart("RAM, 8GB", 50.00, 10),
+                    new InhousePart("RAM, 16GB", 75.00, 10),
+                    new InhousePart("SSD, 512GB", 60.00, 10),
+                    new InhousePart("HDD, 2TB", 80.00, 10)
+            );
+
+            partRepository.saveAll(starterParts);
+        }
+
+        if (productRepository.count() == 0) {
+            List<Product> starterProducts = Arrays.asList(
+                    new Product("The Typewriter", 200.00, 4),
+                    new Product("The Browser", 300.00, 4),
+                    new Product("The Workhorse", 400.00, 2),
+                    new Product("The Gamer", 500.00, 2),
+                    new Product("The Supa Doopa", 800.00, 1)
+            );
+
+            productRepository.saveAll(starterProducts);
+        }
 
        /*
         OutsourcedPart o= new OutsourcedPart();
