@@ -25,12 +25,16 @@ import java.util.List;
  */
 @Controller
 public class AddProductController {
-    @Autowired
-    private ApplicationContext context;
-    private PartService partService;
-    private List<Part> theParts;
+//    @Autowired
+    private final PartService partService;
+    private final ProductService productService;
     private static Product product1;
     private Product product;
+
+    public AddProductController(PartService partService, ProductService productService) {
+        this.partService = partService;
+        this.productService = productService;
+    }
 
     @GetMapping("/showFormAddProduct")
     public String showFormAddPart(Model theModel) {
@@ -53,7 +57,6 @@ public class AddProductController {
         theModel.addAttribute("product", product);
 
         if(bindingResult.hasErrors()){
-            ProductService productService = context.getBean(ProductServiceImpl.class);
             Product product2 = new Product();
             try {
                 product2 = productService.findById((int) product.getId());
@@ -69,26 +72,21 @@ public class AddProductController {
             theModel.addAttribute("assparts",product2.getParts());
             return "productForm";
         }
- //       theModel.addAttribute("assparts", assparts);
- //       this.product=product;
-//        product.getParts().addAll(assparts);
         else {
-            ProductService repo = context.getBean(ProductServiceImpl.class);
             if(product.getId()!=0) {
-                Product product2 = repo.findById((int) product.getId());
-                PartService partService1 = context.getBean(PartServiceImpl.class);
+                Product product2 = productService.findById((int) product.getId());
                 if(product.getInv()- product2.getInv()>0) {
                     for (Part p : product2.getParts()) {
                         int inv = p.getInv();
                         p.setInv(inv - (product.getInv() - product2.getInv()));
-                        partService1.save(p);
+                        partService.save(p);
                     }
                 }
             }
             else{
                 product.setInv(0);
             }
-            repo.save(product);
+            productService.save(product);
             return "confirmationaddproduct";
         }
     }
@@ -96,10 +94,8 @@ public class AddProductController {
     @GetMapping("/showProductFormForUpdate")
     public String showProductFormForUpdate(@RequestParam("productID") int theId, Model theModel) {
         theModel.addAttribute("parts", partService.findAll());
-        ProductService repo = context.getBean(ProductServiceImpl.class);
-        Product theProduct = repo.findById(theId);
-        product1=theProduct;
-    //    this.product=product;
+        Product theProduct = productService.findById(theId);
+//        product1=theProduct;
         //set the employ as a model attibute to prepopulate the form
         theModel.addAttribute("product", theProduct);
         theModel.addAttribute("assparts",theProduct.getParts());
@@ -113,8 +109,8 @@ public class AddProductController {
     }
 
     @GetMapping("/deleteproduct")
-    public String deleteProduct(@RequestParam("productID") int theId, Model theModel) {
-        ProductService productService = context.getBean(ProductServiceImpl.class);
+    public String deleteProduct(@RequestParam("productID") int theId) {
+//        ProductService productService = context.getBean(ProductServiceImpl.class);
         Product product2=productService.findById(theId);
         for(Part part:product2.getParts()){
             part.getProducts().remove(product2);
@@ -128,38 +124,21 @@ public class AddProductController {
     }
 
     @GetMapping("/buyProduct")
-    public String buyProduct(@RequestParam("productID") int theId, Model theModel) {
-        ProductService productService = context.getBean(ProductServiceImpl.class);
-        Product product2 = productService.findById(theId);
-        int currCount = product2.getInv();
-
-        if (currCount > 0) {
-            product2.setInv(product2.getInv() - 1);
-            productService.save(product2);
-
-            return "confirmationBuyProduct";
-        } else {
-
-            return "failureBuyProduct";
-        }
+    public String buyProduct(@RequestParam("productID") int theId) {
+        boolean success = productService.buyProduct(theId);
+        return success ? "confirmationBuyProduct" : "failureBuyProduct";
     }
 
-    public AddProductController(PartService partService) {
-        this.partService = partService;
-    }
 // make the add and remove buttons work
 
     @GetMapping("/associatepart")
     public String associatePart(@Valid @RequestParam("partID") int theID, Model theModel){
-    //    theModel.addAttribute("product", product);
-    //    Product product1=new Product();
         if (product1.getName()==null) {
             return "saveproductscreen";
         }
         else{
         product1.getParts().add(partService.findById(theID));
         partService.findById(theID).getProducts().add(product1);
-        ProductService productService = context.getBean(ProductServiceImpl.class);
         productService.save(product1);
         partService.save(partService.findById(theID));
         theModel.addAttribute("product", product1);
@@ -178,7 +157,6 @@ public class AddProductController {
       //  Product product1=new Product();
         product1.getParts().remove(partService.findById(theID));
         partService.findById(theID).getProducts().remove(product1);
-        ProductService productService = context.getBean(ProductServiceImpl.class);
         productService.save(product1);
         partService.save(partService.findById(theID));
         theModel.addAttribute("product", product1);

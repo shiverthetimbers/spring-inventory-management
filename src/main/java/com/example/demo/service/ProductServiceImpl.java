@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
-import com.example.demo.repositories.PartRepository;
 import com.example.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,7 @@ import java.util.Optional;
  */
 @Service
 public class ProductServiceImpl implements ProductService{
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
 
@@ -36,7 +34,7 @@ public class ProductServiceImpl implements ProductService{
         Long theIdl=(long)theId;
         Optional<Product> result = productRepository.findById(theIdl);
 
-        Product theProduct = null;
+        Product theProduct;
 
         if (result.isPresent()) {
             theProduct = result.get();
@@ -65,5 +63,25 @@ public class ProductServiceImpl implements ProductService{
             return productRepository.search(keyword);
         }
         return (List<Product>) productRepository.findAll();
+    }
+
+    public boolean buyProduct(int theId) {
+        Long theIdl = (long)theId;
+        Optional<Product> productOpt = productRepository.findById(theIdl);
+
+        if (productOpt.isEmpty()){
+            return false;
+        }
+
+        Product product = productOpt.get();
+
+        if (product.getInv() <= 0) {
+            return false;
+        }
+
+        product.setInv(product.getInv() - 1);
+        productRepository.save(product);
+
+        return true;
     }
 }

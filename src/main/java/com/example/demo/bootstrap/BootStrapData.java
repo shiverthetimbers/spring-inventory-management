@@ -60,7 +60,7 @@ public class BootStrapData implements CommandLineRunner {
                     new Product("The Browser", 300.00, 4),
                     new Product("The Workhorse", 400.00, 2),
                     new Product("The Gamer", 500.00, 2),
-                    new Product("The Supa Doopa", 800.00, 1)
+                    new Product("The Continuum Transfunctioner", 800.00, 1)
             );
 
             productRepository.saveAll(starterProducts);
