@@ -17,10 +17,8 @@ public class InhousePart extends Part{
     public InhousePart() {
     }
 
-    public InhousePart(String name, double price, int inv) {
-        this.name = name;
-        this.price = price;
-        this.inv = inv;
+    public InhousePart(String name, double price, int inv, int minInv, int maxInv) {
+        super(name, price, inv, minInv, maxInv);
     }
 
     public int getPartId() {

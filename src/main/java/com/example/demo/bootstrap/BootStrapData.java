@@ -44,11 +44,11 @@ public class BootStrapData implements CommandLineRunner {
         if (partRepository.count() == 0) {
 
             List<InhousePart> starterParts = Arrays.asList(
-                    new InhousePart("CPU, 4 Cores", 100.00, 10),
-                    new InhousePart("RAM, 8GB", 50.00, 10),
-                    new InhousePart("RAM, 16GB", 75.00, 10),
-                    new InhousePart("SSD, 512GB", 60.00, 10),
-                    new InhousePart("HDD, 2TB", 80.00, 10)
+                    new InhousePart("CPU, 4 Cores", 100.00, 10, 0, 50),
+                    new InhousePart("RAM, 8GB", 50.00, 10, 0, 50),
+                    new InhousePart("RAM, 16GB", 75.00, 10, 0, 50),
+                    new InhousePart("SSD, 512GB", 60.00, 10, 0, 50),
+                    new InhousePart("HDD, 2TB", 80.00, 10, 0, 50)
             );
 
             partRepository.saveAll(starterParts);

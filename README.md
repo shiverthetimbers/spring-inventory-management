@@ -52,6 +52,30 @@ G.  Modify the parts to track maximum and minimum inventory by doing the followi
 •  Rename the file the persistent storage is saved to.
 •  Modify the code to enforce that the inventory is between or at the minimum and maximum value.
 
+**Changes for G**
+* Part.java
+  * Added field variables for minimum and maximum (lines 35-38)
+  * Added annotation for new validator (line 21)
+  * Added new variables to constructors (lines 52-53, 61-62)
+  * Added getters and setters for new variables (lines 97-112)
+* InhousePart.java
+  * Added new variables to constructor (lines 20-21)
+* OutsourcedPart.java
+  * Added new variables to constructor (lines 20-23)
+* BootStrapData.java
+  * Modified sample inventory to include min and max parameters (lines 47-51)
+* InhousePartForm.html
+  * Added form fields for new variables (lines 30-38)
+  * Added error block for inventory validation (lines 40-44)
+* OursorcedPartForm.html
+  * Added form fields for new variables (lines 25-29)
+  * Added error block for inventory validation (lines 31-35)
+* Mainscreen.html
+  * Added columns and headers for new fields (lines 39-40, 49-50)
+* Application.properties
+  * renamed file for persistent storage (line 6)
+* Created ValidInventory.java
+* Created InventoryValidator.java
 
 H.  Add validation for between or at the maximum and minimum fields. The validation must include the following:
 •  Display error messages for low inventory when adding and updating parts if the inventory is less than the minimum number of parts.
