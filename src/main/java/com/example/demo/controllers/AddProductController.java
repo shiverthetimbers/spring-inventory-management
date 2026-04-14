@@ -3,11 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
 import com.example.demo.service.PartService;
-import com.example.demo.service.PartServiceImpl;
 import com.example.demo.service.ProductService;
-import com.example.demo.service.ProductServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,7 +83,7 @@ public class AddProductController {
                 product.setInv(0);
             }
             productService.save(product);
-            return "confirmationaddproduct";
+            return "confirmationAddProduct";
         }
     }
 
@@ -120,7 +116,7 @@ public class AddProductController {
         productService.save(product2);
         productService.deleteById(theId);
 
-        return "confirmationdeleteproduct";
+        return "confirmationDeleteProduct";
     }
 
     @GetMapping("/buyProduct")
@@ -134,7 +130,7 @@ public class AddProductController {
     @GetMapping("/associatepart")
     public String associatePart(@Valid @RequestParam("partID") int theID, Model theModel){
         if (product1.getName()==null) {
-            return "saveproductscreen";
+            return "errorSaveProduct";
         }
         else{
         product1.getParts().add(partService.findById(theID));
