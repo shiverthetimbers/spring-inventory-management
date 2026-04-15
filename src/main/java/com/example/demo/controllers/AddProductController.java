@@ -91,7 +91,7 @@ public class AddProductController {
     public String showProductFormForUpdate(@RequestParam("productID") int theId, Model theModel) {
         theModel.addAttribute("parts", partService.findAll());
         Product theProduct = productService.findById(theId);
-//        product1=theProduct;
+        product1=theProduct;
         //set the employ as a model attibute to prepopulate the form
         theModel.addAttribute("product", theProduct);
         theModel.addAttribute("assparts",theProduct.getParts());
@@ -150,7 +150,7 @@ public class AddProductController {
     @GetMapping("/removepart")
     public String removePart(@RequestParam("partID") int theID, Model theModel){
         theModel.addAttribute("product", product);
-      //  Product product1=new Product();
+        Product product1 = new Product();
         product1.getParts().remove(partService.findById(theID));
         partService.findById(theID).getProducts().remove(product1);
         productService.save(product1);
