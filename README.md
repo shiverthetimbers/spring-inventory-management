@@ -98,3 +98,6 @@ I.  Add at least two unit tests for the maximum and minimum fields to the PartTe
   * Added test methods for minInv and maxInv getters and setters (lines 103-138)
 
 J.  Remove the class files for any unused validators in order to clean your code.
+
+**Changes for J**
+* No changes. All validators still used.
