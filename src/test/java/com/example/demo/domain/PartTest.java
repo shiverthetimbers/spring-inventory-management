@@ -31,18 +31,18 @@ class PartTest {
     void getId() {
         Long idValue=4L;
         partIn.setId(idValue);
-        assertEquals(partIn.getId(), idValue);
+        assertEquals(idValue, partIn.getId());
         partOut.setId(idValue);
-        assertEquals(partOut.getId(), idValue);
+        assertEquals(idValue, partOut.getId());
     }
 
     @Test
     void setId() {
         Long idValue=4L;
         partIn.setId(idValue);
-        assertEquals(partIn.getId(), idValue);
+        assertEquals(idValue, partIn.getId());
         partOut.setId(idValue);
-        assertEquals(partOut.getId(), idValue);
+        assertEquals(idValue, partOut.getId());
     }
 
     @Test
@@ -99,6 +99,42 @@ class PartTest {
         assertEquals(inv,partIn.getInv());
         partOut.setInv(inv);
         assertEquals(inv,partOut.getInv());
+    }
+
+    @Test
+    void getMinInv() {
+        int minInv = 2;
+        partIn.setMinInv(minInv);
+        assertEquals(minInv, partIn.getMinInv());
+        partOut.setMinInv(minInv);
+        assertEquals(minInv, partOut.getMinInv());
+    }
+
+    @Test
+    void setMinInv() {
+        int minInv = 2;
+        partIn.setMinInv(minInv);
+        assertEquals(minInv, partIn.getMinInv());
+        partOut.setMinInv(minInv);
+        assertEquals(minInv, partOut.getMinInv());
+    }
+
+    @Test
+    void getMaxInv() {
+        int maxInv = 99;
+        partIn.setMaxInv(maxInv);
+        assertEquals(maxInv, partIn.getMaxInv());
+        partOut.setMaxInv(maxInv);
+        assertEquals(maxInv, partOut.getMaxInv());
+    }
+
+    @Test
+    void setMaxInv() {
+        int maxInv = 99;
+        partIn.setMaxInv(maxInv);
+        assertEquals(maxInv, partIn.getMaxInv());
+        partOut.setMaxInv(maxInv);
+        assertEquals(maxInv, partOut.getMaxInv());
     }
 
     @Test
