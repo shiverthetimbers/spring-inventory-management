@@ -100,4 +100,9 @@ I.  Add at least two unit tests for the maximum and minimum fields to the PartTe
 J.  Remove the class files for any unused validators in order to clean your code.
 
 **Changes for J**
-* No changes. All validators still used.
+* ValidDeletePart.java 
+  * Added annotations to interface (lines 16-18)
+* AddProductController.java
+  * BUG: removing a part from a product created a new product
+  * Removed a line to fix bug (line 153)
+* All validators used. None to be removed
