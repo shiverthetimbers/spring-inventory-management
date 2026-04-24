@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,27 +21,29 @@ import java.util.Set;
 @ValidDeletePart
 @ValidInventory
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="part_type",discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name="partType",discriminatorType = DiscriminatorType.INTEGER)
 @Table(name="Parts")
 public abstract class Part implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-    @NotBlank
-    String name;
-    @Min(value = 0, message = "Price value must be positive")
-    double price;
-    @Min(value = 0, message = "Inventory value must be positive")
-    int inv;
-    @Min(value = 0, message = "Minimum must be positive")
-    int minInv;
-    @Min(value = 0, message = "Maximum must be positive")
-    int maxInv;
+    private long id;
 
-    @ManyToMany
-    @JoinTable(name="product_part", joinColumns = @JoinColumn(name="part_id"),
-            inverseJoinColumns=@JoinColumn(name="product_id"))
-    Set<Product> products= new HashSet<>();
+    @NotBlank
+    @Column(unique = true)
+    private String name;
+
+    @Min(value = 0, message = "Price value must be positive")
+    private double price;
+
+    @Min(value = 0, message = "Inventory value must be positive")
+    private int inv;
+
+    @Min(value = 0, message = "Minimum value must be positive")
+    private int minInv;
+
+    @Min(value = 0, message = "Maximum value must be positive")
+    private int maxInv;
 
     public Part() {
     }
@@ -110,17 +113,6 @@ public abstract class Part implements Serializable {
         this.maxInv = maxInv;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
-    public String toString(){
-        return this.name;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

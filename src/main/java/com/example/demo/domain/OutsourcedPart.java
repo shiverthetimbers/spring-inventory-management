@@ -13,8 +13,9 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @DiscriminatorValue("2")
 public class OutsourcedPart extends Part{
+
     @NotBlank
-    String companyName;
+    private String companyName;
 
     public OutsourcedPart() {
     }

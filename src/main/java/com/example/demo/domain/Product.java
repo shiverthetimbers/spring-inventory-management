@@ -5,6 +5,7 @@ import com.example.demo.validators.ValidProductPrice;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,16 +21,22 @@ import java.util.Set;
 @ValidProductPrice
 @ValidEnufParts
 public class Product implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-    String name;
+    private long id;
+
+    @NotBlank
+    private String name;
+
+    @OneToOne(mappedBy = "product", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    private Recipe recipe;
+
     @Min(value = 0, message = "Price value must be positive")
-    double price;
+    private double price;
+
     @Min(value = 0, message = "Inventory value must be positive")
-    int inv;
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy = "products")
-    Set<Part> parts= new HashSet<>();
+    private int inv;
 
     public Product() {
     }
@@ -63,6 +70,15 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+        recipe.setProduct(this);
+    }
+
     public double getPrice() {
         return price;
     }
@@ -79,17 +95,6 @@ public class Product implements Serializable {
         this.inv = inv;
     }
 
-    public Set<Part> getParts() {
-        return parts;
-    }
-
-    public void setParts(Set<Part> parts) {
-        this.parts = parts;
-    }
-
-    public String toString(){
-        return this.name;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
