@@ -50,11 +50,11 @@ public class AddPartController {
 
         Part part = partService.findById(theId);
 
-        if (part.getProducts().isEmpty()){
-
-            partService.deleteById(theId);
-            return "confirmationDeletePart";
-        }
+//        if (part.getProducts().isEmpty()){
+//
+//            partService.deleteById(theId);
+//            return "confirmationDeletePart";
+//        }
 
         return "errorNegative";
     }

@@ -1,14 +1,9 @@
 package com.example.demo.domain;
 
-import com.example.demo.validators.ValidEnufParts;
-import com.example.demo.validators.ValidProductPrice;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -18,8 +13,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name="Products")
-@ValidProductPrice
-@ValidEnufParts
+//@ValidProductPrice
+//@ValidEnufParts
 public class Product implements Serializable {
 
     @Id
@@ -42,13 +37,6 @@ public class Product implements Serializable {
     }
 
     public Product(String name, double price, int inv) {
-        this.name = name;
-        this.price = price;
-        this.inv = inv;
-    }
-
-    public Product(long id, String name, double price, int inv) {
-        this.id = id;
         this.name = name;
         this.price = price;
         this.inv = inv;

@@ -46,7 +46,7 @@ public class AddOutsourcedPartController {
         if (existingPart !=null) {
 
             // Preserve existing product associations when updating a part
-            part.setProducts(existingPart.getProducts());
+//            part.setProducts(existingPart.getProducts());
         }
 
         outsourcedPartService.save(part);

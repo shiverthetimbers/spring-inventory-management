@@ -18,8 +18,8 @@ import java.util.Set;
  *
  */
 @Entity
-@ValidDeletePart
-@ValidInventory
+//@ValidDeletePart
+//@ValidInventory
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partType",discriminatorType = DiscriminatorType.INTEGER)
 @Table(name="Parts")
@@ -49,15 +49,6 @@ public abstract class Part implements Serializable {
     }
 
     public Part(String name, double price, int inv, int minInv, int maxInv) {
-        this.name = name;
-        this.price = price;
-        this.inv = inv;
-        this.minInv = minInv;
-        this.maxInv = maxInv;
-    }
-
-    public Part(long id, String name, double price, int inv, int minInv, int maxInv) {
-        this.id = id;
         this.name = name;
         this.price = price;
         this.inv = inv;

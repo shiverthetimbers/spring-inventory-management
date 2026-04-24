@@ -31,7 +31,6 @@ public class Recipe {
 
     public void setProduct(Product product) {
         this.product = product;
-        product.setRecipe(this);
     }
 
     public void setId(long id) {

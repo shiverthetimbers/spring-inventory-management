@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Product;
 import com.example.demo.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +15,8 @@ import java.util.Optional;
  */
 @Service
 public class ProductServiceImpl implements ProductService{
-    private final ProductRepository productRepository;
 
-    @Autowired
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -30,51 +28,49 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product findById(int theId) {
-        Long theIdl=(long)theId;
-        Optional<Product> result = productRepository.findById(theIdl);
+    public Product findById(long id) {
 
-        Product theProduct;
+        Optional<Product> optionalProduct = productRepository.findById(id);
 
-        if (result.isPresent()) {
-            theProduct = result.get();
-        }
-        else {
-            // we didn't find the product id
-            throw new RuntimeException("Did not find part id - " + theId);
+        Product product;
+        if (optionalProduct.isPresent()) {
+            product = optionalProduct.get();
+        } else {
+            throw new RuntimeException("Did not find part id - " + id);
         }
 
-        return theProduct;
+        return product;
     }
 
     @Override
-    public void save(Product theProduct) {
-        productRepository.save(theProduct);
-
+    public void save(Product product) {
+        productRepository.save(product);
     }
 
     @Override
-    public void deleteById(int theId) {
-        Long theIdl=(long)theId;
-        productRepository.deleteById(theIdl);
+    public void deleteById(long id) {
+        productRepository.deleteById(id);
     }
+
     public List<Product> listAll(String keyword){
-        if(keyword !=null){
+
+        if (keyword != null) {
             return productRepository.search(keyword);
         }
+
         return (List<Product>) productRepository.findAll();
     }
 
-    public boolean buyProduct(int theId) {
-        Long theIdl = (long)theId;
-        Optional<Product> productOpt = productRepository.findById(theIdl);
+    @Override
+    public boolean buyProduct(long id) {
 
-        if (productOpt.isEmpty()){
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isEmpty()){
             return false;
         }
 
-        Product product = productOpt.get();
-
+        Product product = optionalProduct.get();
         if (product.getInv() <= 0) {
             return false;
         }

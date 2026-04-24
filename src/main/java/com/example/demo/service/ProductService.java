@@ -11,10 +11,16 @@ import java.util.List;
  *
  */
 public interface ProductService {
+
     List<Product> findAll();
-    Product findById(int theId);
-    void save (Product theProduct);
-    void deleteById(int theId);
+
+    Product findById(long id);
+
+    void save (Product product);
+
+    void deleteById(long id);
+
     List<Product> listAll(String keyword);
-    boolean buyProduct(int theId);
+
+    boolean buyProduct(long id);
 }

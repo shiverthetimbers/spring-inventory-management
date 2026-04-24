@@ -69,7 +69,7 @@
         }
     </script>
     <br><br>
-    <a th:href="@{/showFormAddProduct}" class="btn btn-primary btn-sm mb-3">Add Product</a>
+    <a th:href="@{/addProductDetails}" class="btn btn-primary btn-sm mb-3">Add Product</a>
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -86,7 +86,7 @@
             <td th:text="${tempProduct.inv}">1</td>
             <td>
                 <a th:href="@{/buyProduct(productID=${tempProduct.id})}" class="btn btn-outline-dark btn-sm mb-3">Buy Now</a>
-                <a th:href="@{/showProductFormForUpdate(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
+                <a th:href="@{/updateProductDetails(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
                 <a th:href="@{/deleteproduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3"
                    onclick="if(!(confirm('Are you sure you want to delete this product?')))return false">Delete</a>
             </td>

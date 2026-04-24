@@ -1,22 +1,15 @@
 package com.example.demo.bootstrap;
 
-import com.example.demo.domain.InhousePart;
-import com.example.demo.domain.OutsourcedPart;
-import com.example.demo.domain.Part;
-import com.example.demo.domain.Product;
+import com.example.demo.domain.*;
 import com.example.demo.repositories.OutsourcedPartRepository;
 import com.example.demo.repositories.PartRepository;
 import com.example.demo.repositories.ProductRepository;
-import com.example.demo.service.OutsourcedPartService;
-import com.example.demo.service.OutsourcedPartServiceImpl;
-import com.example.demo.service.ProductService;
-import com.example.demo.service.ProductServiceImpl;
+import com.example.demo.repositories.RecipeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
@@ -29,10 +22,9 @@ public class BootStrapData implements CommandLineRunner {
 
     private final PartRepository partRepository;
     private final ProductRepository productRepository;
-
     private final OutsourcedPartRepository outsourcedPartRepository;
 
-    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository) {
+    public BootStrapData(PartRepository partRepository, ProductRepository productRepository, OutsourcedPartRepository outsourcedPartRepository, RecipeRepository recipeRepository) {
         this.partRepository = partRepository;
         this.productRepository = productRepository;
         this.outsourcedPartRepository=outsourcedPartRepository;
@@ -40,6 +32,7 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Part starterPart = null;
 
         if (partRepository.count() == 0) {
 
@@ -51,10 +44,12 @@ public class BootStrapData implements CommandLineRunner {
                     new InhousePart("HDD, 2TB", 80.00, 10, 0, 50)
             );
 
+            starterPart = starterParts.get(0);
             partRepository.saveAll(starterParts);
         }
 
         if (productRepository.count() == 0) {
+
             List<Product> starterProducts = Arrays.asList(
                     new Product("The Typewriter", 200.00, 4),
                     new Product("The Browser", 300.00, 4),
@@ -62,6 +57,16 @@ public class BootStrapData implements CommandLineRunner {
                     new Product("The Gamer", 500.00, 2),
                     new Product("The Continuum Transfunctioner", 800.00, 1)
             );
+
+            for (Product each : starterProducts) {
+
+                RecipeLine starterLine = new RecipeLine(starterPart, 1);
+                Recipe starterRecipe = new Recipe();
+
+                each.setRecipe(starterRecipe);
+                starterRecipe.addRecipeLine(starterLine);
+
+            }
 
             productRepository.saveAll(starterProducts);
         }

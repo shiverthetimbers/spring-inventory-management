@@ -23,6 +23,11 @@ public class RecipeLine {
     public RecipeLine() {
     }
 
+    public RecipeLine(Part part, int partCount) {
+        this.part = part;
+        this.partCount = partCount;
+    }
+
     public long getId() {
         return id;
     }
@@ -39,11 +44,11 @@ public class RecipeLine {
         this.part = part;
     }
 
-    public int getPartQuantity() {
+    public int getPartCount() {
         return partCount;
     }
 
-    public void setPartQuantity(int partCount) {
+    public void setPartCount(int partCount) {
         this.partCount = partCount;
     }
 
@@ -53,6 +58,5 @@ public class RecipeLine {
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
-        recipe.addRecipeLine(this);
     }
 }

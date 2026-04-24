@@ -20,7 +20,8 @@ public class DeletePartValidator implements ConstraintValidator<ValidDeletePart,
 
     @Override
     public boolean isValid(Part part, ConstraintValidatorContext constraintValidatorContext) {
-        if(part.getProducts().isEmpty()) return true;
-        else return false;
+//        if(part.getProducts().isEmpty())
+        return true;
+//        else return false;
     }
 }
