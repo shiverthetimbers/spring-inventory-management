@@ -12,8 +12,12 @@ import java.util.List;
  *
  */
 public interface OutsourcedPartService {
-        public List<OutsourcedPart> findAll();
-        public OutsourcedPart findById(int theId);
-        public void save (OutsourcedPart thePart);
-        public void deleteById(int theId);
+
+        List<OutsourcedPart> findAll();
+
+        OutsourcedPart findById(long id);
+
+        void save (OutsourcedPart thePart);
+
+        void deleteById(long id);
 }

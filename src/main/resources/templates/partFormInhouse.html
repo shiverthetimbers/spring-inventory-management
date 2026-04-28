@@ -17,7 +17,7 @@
     <div class="container">
         <h1>Inhouse Part Detail</h1>
         <hr>
-        <form action="#" th:action="@{/showFormAddInPart}" th:object="${inhousepart}" method="POST">
+        <form action="#" th:action="@{/parts/inhouse/add}" th:object="${inhousepart}" method="POST">
 
             <!-- Add hidden form field to handle update -->
             <p><input type="hidden" th:field="*{id}"/></p>
@@ -53,11 +53,7 @@
                 </ul>
             </div>
 
-            <p><label>Part ID:<br>
-                <input th:class="form-control" type="text" th:field="*{partId}" placeholder="Part ID" class="form-control mb-4 col-4"/>
-            </label></p>
-
-            <p><input type="submit" value="Submit" /></p>
+            <p><input type="submit" value="Save" /></p>
         </form>
 
         <a th:href="@{/mainscreen}" class="btn btn-primary btn-sm mb-3">Home</a>

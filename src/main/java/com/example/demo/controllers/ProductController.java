@@ -34,10 +34,8 @@ public class ProductController {
     public String addProductDetails(Model model) {
 
         Product product = new Product();
-//        List<RecipeLine> recipeLines = new;
 
         model.addAttribute("product", product);
-//        model.addAttribute("recipeLines", recipeLines);
 
         return "productForm";
     }
@@ -68,22 +66,14 @@ public class ProductController {
 
         return "productForm";
     }
-//
-//    @GetMapping("/deleteproduct")
-//    public String deleteProduct(@RequestParam("productID") long id) {
-//
-//        Product product = productService.findById(id);
-//
-//        for(Part part:product2.getParts()){
-//            part.getProducts().remove(product2);
-//            partService.save(part);
-//        }
-//        product2.getParts().removeAll(product2.getParts());
-//        productService.save(product2);
-//        productService.deleteById(id);
-//
-//        return "confirmationDeleteProduct";
-//    }
+
+    @GetMapping("/deleteproduct")
+    public String deleteProduct(@RequestParam("productID") long id) {
+
+        productService.deleteById(id);
+
+        return "confirmationDeleteProduct";
+    }
 //
 //    @GetMapping("/buyProduct")
 //    public String buyProduct(@RequestParam("productID") long id) {

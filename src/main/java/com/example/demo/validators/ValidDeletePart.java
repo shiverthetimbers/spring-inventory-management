@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDeletePart {
-    String message() default "Part cannot be deleted if used in a product.";
+    String message() default "Part cannot be deleted if associated with a recipe.";
     Class<?> [] groups() default {};
     Class<? extends Payload> [] payload() default {};
 }

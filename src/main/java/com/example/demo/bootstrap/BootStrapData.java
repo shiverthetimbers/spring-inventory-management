@@ -65,7 +65,6 @@ public class BootStrapData implements CommandLineRunner {
 
                 each.setRecipe(starterRecipe);
                 starterRecipe.addRecipeLine(starterLine);
-
             }
 
             productRepository.saveAll(starterProducts);

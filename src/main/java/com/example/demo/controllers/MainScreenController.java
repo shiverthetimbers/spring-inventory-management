@@ -33,9 +33,10 @@ public class MainScreenController {
     public String listPartsAndProducts(Model theModel, @Param("partkeyword") String partkeyword, @Param("productkeyword") String productkeyword){
         //add to the spring model
         List<Part> partList = partService.listAll(partkeyword);
+        List<Product> productList = productService.listAll(productkeyword);
+
         theModel.addAttribute("parts",partList);
         theModel.addAttribute("partkeyword",partkeyword);
-        List<Product> productList = productService.listAll(productkeyword);
         theModel.addAttribute("products", productList);
         theModel.addAttribute("productkeyword",productkeyword);
 

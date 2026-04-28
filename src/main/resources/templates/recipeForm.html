@@ -37,7 +37,8 @@
     </form>
     <br>
     <h2>Recipe</h2>
-    <table class="table table-bordered table-striped">
+    <small class="italic help-note">Each <span style="color: red">part count</span> should be between 1 and 10</small>
+    <table style="table-layout: fixed" class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
             <th>Name</th>
@@ -50,7 +51,7 @@
             <tr th:each="line : ${recipeLines}">
                 <td th:text="${line.part.name}">1</td>
                 <td>
-                    <div class="d-flex align-items-center justify-content-center gap-2 h-100">
+                    <div style="width: fit-content" class="d-flex gap-2">
                         <form th:action="@{/products/{productID}/recipe/lines/{lineID}/decrement(productID=${product.id}, lineID=${line.id})}" th:method="POST">
                             <input th:type="hidden" th:name="lineID" th:value="${line.id}">
                             <button style="width: 30px"  class="btn btn-outline-dark btn-sm">-</button>
@@ -66,7 +67,7 @@
                 <td>
                     <form th:action="@{/products/{productID}/recipe/lines/remove(productID=${product.id})}" th:method="POST">
                         <input th:type="hidden" th:name="lineID" th:value="${line.id}">
-                        <button type="submit" class="btn btn-danger btn-sm mb-3">Remove</button>
+                        <button style="width: 70px" type="submit" class="btn btn-danger btn-sm mb-3">Remove</button>
                     </form>
                 </td>
             </tr>
@@ -79,7 +80,7 @@
     </table>
 
     <h2>Available Parts</h2>
-    <table class="table table-bordered table-striped">
+    <table style="table-layout: fixed" class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
             <th>Name</th>
@@ -96,7 +97,7 @@
             <td>
                 <form th:action="@{/products/{productID}/recipe/lines/add(productID=${product.id})}" th:method="POST">
                     <input th:type="hidden" th:name="partID" th:value="${part.id}">
-                    <button type="submit" class="btn btn-primary btn-sm mb-3">Add</button>
+                    <button style="width: 70px" type="submit" class="btn btn-primary btn-sm mb-3">Add</button>
                 </form>
             </td>
         </tr>

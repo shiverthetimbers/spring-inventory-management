@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Part;
 import com.example.demo.repositories.PartRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +16,8 @@ import java.util.Optional;
 
 @Service
 public class PartServiceImpl implements PartService{
-        private final PartRepository partRepository;
 
-        @Autowired
+    private final PartRepository partRepository;
 
     public PartServiceImpl(PartRepository partRepository) {
         this.partRepository = partRepository;
@@ -29,6 +27,7 @@ public class PartServiceImpl implements PartService{
     public List<Part> findAll() {
         return (List<Part>) partRepository.findAll();
     }
+
     public List<Part> listAll(String keyword){
         if(keyword !=null){
             return partRepository.search(keyword);
@@ -53,14 +52,20 @@ public class PartServiceImpl implements PartService{
     }
 
     @Override
-    public void save(Part thePart) {
-            partRepository.save(thePart);
-
+    public void save(Part part) {
+            partRepository.save(part);
     }
 
     @Override
-    public void deleteById(int theId) {
-        Long theIdl=(long)theId;
-        partRepository.deleteById(theIdl);
+    public boolean deleteIfUnused(long id) {
+
+        Part part = findById(id);
+
+        if (part.getAssocRecipeLines().isEmpty()) {
+            partRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 }

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,8 +19,8 @@ import java.util.Set;
  *
  */
 @Entity
-//@ValidDeletePart
-//@ValidInventory
+@ValidDeletePart
+@ValidInventory
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partType",discriminatorType = DiscriminatorType.INTEGER)
 @Table(name="Parts")
@@ -44,6 +45,9 @@ public abstract class Part implements Serializable {
 
     @Min(value = 0, message = "Maximum value must be positive")
     private int maxInv;
+
+    @OneToMany(mappedBy = "part")
+    private List<RecipeLine> assocRecipeLines = new ArrayList<>();
 
     public Part() {
     }
@@ -104,18 +108,32 @@ public abstract class Part implements Serializable {
         this.maxInv = maxInv;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Part part = (Part) o;
-
-        return id == part.id;
+    public List<RecipeLine> getAssocRecipeLines() {
+        return assocRecipeLines;
     }
 
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+    public void addAssocRecipeLine(RecipeLine recipeLine) {
+        assocRecipeLines.add(recipeLine);
+        recipeLine.setPart(this);
     }
+
+    public void removeAssocRecipeLine(RecipeLine recipeLine) {
+        assocRecipeLines.remove(recipeLine);
+        recipeLine.setPart(null);
+    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Part part = (Part) o;
+//
+//        return id == part.id;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Long.hashCode(id);
+//    }
 }

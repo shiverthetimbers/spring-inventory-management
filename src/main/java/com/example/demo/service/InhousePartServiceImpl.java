@@ -31,34 +31,26 @@ public class InhousePartServiceImpl implements InhousePartService {
     }
 
     @Override
-    public InhousePart findById(int theId) {
-        Long theIdl=(long)theId;
-        Optional<InhousePart> result = partRepository.findById(theIdl);
+    public InhousePart findById(long id) {
+        Optional<InhousePart> result = partRepository.findById(id);
 
-        InhousePart thePart = null;
-
+        InhousePart part;
         if (result.isPresent()) {
-            thePart = result.get();
-        }
-        else {
-            // we didn't find the InhousePart id
-            //throw new RuntimeException("Did not find part id - " + theId);
-            return null;
+            part = result.get();
+        } else {
+            throw new RuntimeException("Did not find part id - " + id);
         }
 
-        return thePart;
+        return part;
     }
 
     @Override
     public void save(InhousePart thePart) {
         partRepository.save(thePart);
-
     }
 
     @Override
-    public void deleteById(int theId) {
-        Long theIdl=(long)theId;
-        partRepository.deleteById(theIdl);
+    public void deleteById(long id) {
+        partRepository.deleteById(id);
     }
-
 }

@@ -58,7 +58,12 @@ public class RecipeServiceImpl implements RecipeService {
         Part part = partService.findById(partId);
         RecipeLine newLine = new RecipeLine(part, quantity);
 
+        part.addAssocRecipeLine(newLine);
         recipe.addRecipeLine(newLine);
+
+//        May not need to save part since RecipeLine owns the relationship with part
+//        RecipeLine is saved via cascade from Product > Recipe > RecipeLine
+//        partService.save(part);
         productService.save(productService.findById(productId));
     }
 
@@ -67,8 +72,14 @@ public class RecipeServiceImpl implements RecipeService {
 
         Recipe recipe = findRecipeByProductId(productId);
         RecipeLine oldLine = recipeLineService.findById(recipeLineId);
+        Part part = oldLine.getPart();
 
+        part.removeAssocRecipeLine(oldLine);
         recipe.removeRecipeLine(oldLine);
+
+//        May not need to save part since RecipeLine owns the relationship with part
+//        RecipeLine is saved via cascade from Product > Recipe > RecipeLine
+//        partService.save(part);
         productService.save(productService.findById(productId));
     }
 
