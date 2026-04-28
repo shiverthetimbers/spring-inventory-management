@@ -1,13 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
 import com.example.demo.domain.Recipe;
 import com.example.demo.domain.RecipeLine;
 import com.example.demo.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,32 +30,35 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/addProductDetails")
+    @GetMapping("/addProduct")
     public String addProductDetails(Model model) {
 
         Product product = new Product();
-        Recipe recipe = product.getRecipe();
-
-        List<RecipeLine> recipeLines = recipe.getRecipeLines();
+//        List<RecipeLine> recipeLines = new;
 
         model.addAttribute("product", product);
-        model.addAttribute("recipeLines", recipeLines);
+//        model.addAttribute("recipeLines", recipeLines);
 
-        return "productDetailsForm";
+        return "productForm";
     }
 
-    @PostMapping("/addProductDetails")
-    public String submitForm(@Valid @ModelAttribute("product") Product product, Errors errors, Model model) {
+    @PostMapping("/saveProduct")
+    public String submitForm(@Valid @ModelAttribute("product") Product product, Errors errors) {
 
         if (errors.hasErrors()) {
-            return "productDetailsForm";
+            return "productForm";
         }
 
-            return "confirmationAddProduct";
+        if (product.getRecipe() == null) {
+            product.setRecipe(new Recipe());
+        }
+        productService.save(product);
+
+        return "confirmationSaveProduct";
     }
 
-    @GetMapping("/updateProductDetails")
-    public String updateProductDetails(@RequestParam("productID") long id, Model model) {
+    @GetMapping("/updateProduct")
+    public String updateProduct(@RequestParam("productID") long id, Model model) {
 
         Product product = productService.findById(id);
         List<RecipeLine> recipeLines = product.getRecipe().getRecipeLines();
@@ -66,7 +66,7 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("recipeLines", recipeLines);
 
-        return "productDetailsForm";
+        return "productForm";
     }
 //
 //    @GetMapping("/deleteproduct")

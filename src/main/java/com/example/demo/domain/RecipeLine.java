@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Entity
@@ -15,6 +16,7 @@ public class RecipeLine {
     private Part part;
 
     @Min(value = 0, message = "Part count value must be positive")
+    @Max(value = 10, message = "Part count max is 10")
     private int partCount;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Part;
-import com.example.demo.domain.Product;
 import com.example.demo.repositories.PartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ import java.util.Optional;
 
 @Service
 public class PartServiceImpl implements PartService{
-        private PartRepository partRepository;
+        private final PartRepository partRepository;
 
         @Autowired
 
@@ -36,22 +35,21 @@ public class PartServiceImpl implements PartService{
         }
         return (List<Part>) partRepository.findAll();
     }
+
     @Override
-    public Part findById(int theId) {
-        Long theIdl=(long)theId;
-        Optional<Part> result = partRepository.findById(theIdl);
+    public Part findById(long id) {
+        Optional<Part> result = partRepository.findById(id);
 
-        Part thePart = null;
-
+        Part part;
         if (result.isPresent()) {
-            thePart = result.get();
+            part = result.get();
         }
         else {
             // we didn't find the part id
-            throw new RuntimeException("Did not find part id - " + theId);
+            throw new RuntimeException("Did not find part id - " + id);
         }
 
-        return thePart;
+        return part;
     }
 
     @Override

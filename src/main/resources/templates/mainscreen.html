@@ -19,9 +19,9 @@
     <h1>Petey's PC Shop</h1>
     <a th:href="@{/about}" class="btn btn-primary btn-sm mb-3">About</a>
     <hr>
-    <h2>Components</h2>
+    <h2>Parts</h2>
     <form th:action="@{/mainscreen}">
-        Filter: <input type="text" name="partkeyword" id="partkeyword" size="50" th:value="${partkeyword}" required />
+        <label>Find a Part:<br><input type="text" name="partkeyword" id="partkeyword" size="50" th:value="${partkeyword}" required /></label>
         &nbsp;
         <input type="submit" value="Search" />
         &nbsp;
@@ -55,9 +55,9 @@
         </tr>
         </tbody>
     </table>
-    <h2>Computers</h2>
+    <h2>Products</h2>
     <form th:action="@{/mainscreen}">
-        Filter: <input type="text" name="productkeyword" id="productkeyword" size="50" th:value="${productkeyword}" required />
+        <label>Find a Product:<br><input type="text" name="productkeyword" id="productkeyword" size="50" th:value="${productkeyword}" required /></label>
         &nbsp;
         <input type="submit" value="Search" />
         &nbsp;
@@ -69,7 +69,7 @@
         }
     </script>
     <br><br>
-    <a th:href="@{/addProductDetails}" class="btn btn-primary btn-sm mb-3">Add Product</a>
+    <a th:href="@{/addProduct}" class="btn btn-primary btn-sm mb-3">Add Product</a>
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -80,14 +80,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="tempProduct : ${products}">
-            <td th:text="${tempProduct.name}">1</td>
-            <td th:text="${tempProduct.price}">1</td>
-            <td th:text="${tempProduct.inv}">1</td>
+        <tr th:each="each : ${products}">
+            <td th:text="${each.name}">1</td>
+            <td th:text="${each.price}">1</td>
+            <td th:text="${each.inv}">1</td>
             <td>
-                <a th:href="@{/buyProduct(productID=${tempProduct.id})}" class="btn btn-outline-dark btn-sm mb-3">Buy Now</a>
-                <a th:href="@{/updateProductDetails(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
-                <a th:href="@{/deleteproduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3"
+                <a th:href="@{/buyProduct(productID=${each.id})}" class="btn btn-outline-dark btn-sm mb-3">Buy Now</a>
+                <a th:href="@{/updateProduct(productID=${each.id})}" class="btn btn-primary btn-sm mb-3">Details</a>
+                <a th:href="@{/products/{productID}/recipe/edit(productID=${each.id})}" class="btn btn-primary btn-sm mb-3">Adjust Recipe</a>
+                <a th:href="@{/deleteproduct(productID=${each.id})}" class="btn btn-danger btn-sm mb-3"
                    onclick="if(!(confirm('Are you sure you want to delete this product?')))return false">Delete</a>
             </td>
         </tr>

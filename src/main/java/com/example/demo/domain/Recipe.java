@@ -52,12 +52,12 @@ public class Recipe {
 //    }
 
     public void addRecipeLine(RecipeLine recipeLine) {
-        recipeLines.add(recipeLine);
+        this.recipeLines.add(recipeLine);
         recipeLine.setRecipe(this);
     }
 
     public void removeRecipeLine(RecipeLine recipeLine) {
-        recipeLines.remove(recipeLine);
+        this.recipeLines.remove(recipeLine);
         recipeLine.setRecipe(null);
     }
 }

@@ -50,7 +50,7 @@ public class AddOutsourcedPartController {
         }
 
         outsourcedPartService.save(part);
-        return "confirmationAddPart";
+        return "confirmationSavePart";
     }
 
 }
