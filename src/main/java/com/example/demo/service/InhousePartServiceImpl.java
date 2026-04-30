@@ -47,8 +47,8 @@ public class InhousePartServiceImpl implements InhousePartService {
         partRepository.save(part);
     }
 
-    @Override
-    public void deleteById(long id) {
-        partRepository.deleteById(id);
-    }
+//    @Override
+//    public void deleteById(long id) {
+//        partRepository.deleteById(id);
+//    }
 }
