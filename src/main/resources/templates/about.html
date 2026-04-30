@@ -22,7 +22,99 @@
         Petey's is the perfect place to get your new PC <strong>OR</strong> parts to restore peak performance.
       </p>
       <a th:href="@{/mainscreen}" class="btn btn-primary btn-sm mb-3">Home</a>
-    </div>
+      <div class="container my-4">
+        <h1>Inventory Management System</h1>
 
+        <p>
+          This project started as an end-of-course assessment for a Java Frameworks course.
+          The original version focused on basic product and part management, with products
+          and parts associated directly in a relatively simple structure.
+        </p>
+
+        <p>
+          After passing the course, I wanted to modify the app and add more meaningful
+          functionality. I refactored the project into a more realistic inventory and
+          assembly workflow. The main goal was to make the domain model better match the
+          actual scenario: products are assembled from parts, and each product should define
+          a recipe that describes which parts in what quantities are required.
+        </p>
+
+        <hr>
+
+        <h2>Refactor Summary</h2>
+
+        <p>The project was restructured around a clearer domain model:</p>
+
+        <ul>
+          <li>
+            <strong>Product</strong> represents a finished item that can be assembled or disassembled.
+          </li>
+          <li>
+            <strong>Part</strong> represents inventory used to build products.
+          </li>
+          <li>
+            <strong>Recipe</strong> belongs to a product and defines how that product is assembled.
+          </li>
+          <li>
+            <strong>RecipeLine</strong> belongs to a recipe and stores associated parts and the
+            quantity of that part required.
+          </li>
+        </ul>
+
+        <p>
+          This replaced the simpler product/part association with a more explicit recipe-based
+          structure. The new model better supports assembly behavior, inventory checks, and
+          future expansion.
+        </p>
+
+        <hr>
+
+        <h2>Features Added</h2>
+
+        <p>
+          After restructuring the entities and relationships, I implemented several new workflows:
+        </p>
+
+        <ul>
+          <li>Product detail views with associated recipe information</li>
+          <li>Recipe editing for each product</li>
+          <li>Adding and removing parts from a product recipe</li>
+          <li>Incrementing and decrementing recipe line quantities</li>
+          <li>Assembly of finished products from part inventory</li>
+          <li>Disassembly of finished products back into part inventory</li>
+          <li>Inventory validation for part minimums and maximums</li>
+          <li>Protection against deleting parts that are currently used in recipes</li>
+          <li>Success and error messages for assembly/disassembly actions</li>
+        </ul>
+
+        <hr>
+
+        <h2>Technical Focus</h2>
+
+        <p>This project emphasizes backend/domain modeling concepts, including:</p>
+
+        <ul>
+          <li>Java and Spring Boot</li>
+          <li>Spring MVC controllers</li>
+          <li>Thymeleaf server-rendered views</li>
+          <li>JPA/Hibernate entity relationships</li>
+          <li>Service-layer business logic</li>
+          <li>Post/Redirect/Get form handling</li>
+          <li>Inventory rule validation</li>
+        </ul>
+
+        <hr>
+
+        <h2>Purpose</h2>
+
+        <p>
+          The refactor was intended to move the project beyond a basic course submission and
+          turn it into a more meaningful portfolio project. The focus was on practicing
+          realistic backend design: modeling relationships clearly, keeping business rules in
+          the service layer, and building workflows that reflect how an inventory assembly
+          system might actually behave.
+        </p>
+      </div>
+    </div>
   </body>
 </html>
