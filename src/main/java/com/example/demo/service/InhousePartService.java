@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.InhousePart;
-import com.example.demo.domain.OutsourcedPart;
-import com.example.demo.domain.Part;
 
 import java.util.List;
 
@@ -14,11 +12,11 @@ import java.util.List;
  */
 public interface InhousePartService {
 
-    public List<InhousePart> findAll();
+    List<InhousePart> findAll();
 
-    public InhousePart findById(long id);
+    InhousePart findById(long id);
 
-    public void save (InhousePart thePart);
+    void save (InhousePart thePart);
 
-    public void deleteById(long id);
+//    void deleteById(long id);
 }

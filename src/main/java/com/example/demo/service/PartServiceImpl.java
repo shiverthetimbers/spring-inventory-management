@@ -53,7 +53,7 @@ public class PartServiceImpl implements PartService{
 
     @Override
     public void save(Part part) {
-            partRepository.save(part);
+        partRepository.save(part);
     }
 
     @Override
@@ -61,11 +61,11 @@ public class PartServiceImpl implements PartService{
 
         Part part = findById(id);
 
-        if (part.getAssocRecipeLines().isEmpty()) {
-            partRepository.deleteById(id);
-            return true;
+        if (!part.getAssocRecipeLines().isEmpty()) {
+            return false;
         }
 
-        return false;
+        partRepository.deleteById(id);
+        return true;
     }
 }

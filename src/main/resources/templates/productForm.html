@@ -30,7 +30,6 @@
             <input th:class="form-control" type="text" th:field="*{price}" placeholder= "Price" class="form-control mb-4 col-4"/>
         </label>
 
-
         <label>Inventory:<br>
             <input th:class="form-control" type="text" th:field="*{inv}" placeholder="Inventory" class="form-control mb-4 col-4"/>
         </label>
@@ -43,10 +42,10 @@
 
         <input type="submit" value="Save" />
     </form>
-
-
+    <br>
     <h2>Recipe</h2>
-    <table class="table table-bordered table-striped">
+    <br>
+    <table style="table-layout: fixed" class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
             <th>Name</th>
@@ -67,7 +66,7 @@
         </tr>
         </tbody>
     </table>
-
+    <hr>
     <a th:href="@{/mainscreen}" class="btn btn-primary btn-sm mb-3">Home</a>
 </div>
 </body>

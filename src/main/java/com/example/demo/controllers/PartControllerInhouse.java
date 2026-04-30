@@ -27,11 +27,11 @@ public class PartControllerInhouse {
     }
 
     @GetMapping("/parts/inhouse/add")
-    public String addInhousePart(Model theModel){
+    public String addInhousePart(Model model){
 
         InhousePart part = new InhousePart();
 
-        theModel.addAttribute("inhousepart", part);
+        model.addAttribute("inhousepart", part);
 
         return "partFormInhouse";
     }

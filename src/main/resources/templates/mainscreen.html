@@ -51,12 +51,14 @@
             <td th:text="${tempPart.maxInv}">1</td>
             <td>
                 <a th:href="@{/parts/{partID}/edit(partID=${tempPart.id})}" class="btn btn-primary btn-sm mb-3">Update</a>
+<!--                FIXME: Change delete to a POST Mapping form-->
                 <a th:href="@{/parts/{partID}/delete(partID=${tempPart.id})}" class="btn btn-danger btn-sm mb-3"
                    onclick="if(!(confirm('Are you sure you want to delete this part?')))return false">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <hr>
     <h2>Products</h2>
     <form th:action="@{/mainscreen}">
         <label>Find a Product:<br><input type="text" name="productkeyword" id="productkeyword" size="50" th:value="${productkeyword}" required /></label>
@@ -87,15 +89,18 @@
             <td th:text="${each.price}">1</td>
             <td th:text="${each.inv}">1</td>
             <td>
-                <a th:href="@{/buyProduct(productID=${each.id})}" class="btn btn-outline-dark btn-sm mb-3">Buy Now</a>
+                <a th:href="@{/products/{productID}/shipping(productID=${each.id})}" class="btn btn-outline-dark btn-sm mb-3">Ship Product</a>
                 <a th:href="@{/updateProduct(productID=${each.id})}" class="btn btn-primary btn-sm mb-3">Details</a>
+                <a th:href="@{/products/{productID}/assembly(productID=${each.id})}" class="btn btn-primary btn-sm mb-3">Assemble</a>
                 <a th:href="@{/products/{productID}/recipe/edit(productID=${each.id})}" class="btn btn-primary btn-sm mb-3">Adjust Recipe</a>
+<!--                FIXME: change delete to a post mapping -->
                 <a th:href="@{/deleteproduct(productID=${each.id})}" class="btn btn-danger btn-sm mb-3"
                    onclick="if(!(confirm('Are you sure you want to delete this product?')))return false">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <hr>
 </div>
 </body>
 </html>
